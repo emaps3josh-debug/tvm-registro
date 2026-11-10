@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Solo estos correos pueden entrar al panel. Para agregar otro usuario,
+    // créelo en Authentication y añada su correo a esta lista.
+    function esAdmin() {
+      return request.auth != null
+        && request.auth.token.email in ['gustavoortega@tvm-registro.app'];
+    }
+
+    function texto(d, campo, max) {
+      return d[campo] is string && d[campo].size() <= max;
+    }
+
+    match /registros/{id} {
+      // Cualquier visitante puede ENVIAR un registro, pero no leer los de otros.
+      allow create: if
+        request.resource.data.keys().hasOnly(['empresa','contacto','correo','telefono','servicios','detalle',
+                                              'ubicacion','sitioWeb','origen','acepta','estado','notas','creado'])
+        && texto(request.resource.data, 'empresa', 160) && request.resource.data.empresa.size() > 1
+        && texto(request.resource.data, 'contacto', 160)
+        && texto(request.resource.data, 'correo', 200)
+        && texto(request.resource.data, 'telefono', 40)
+        && request.resource.data.servicios is list && request.resource.data.servicios.size() <= 15
+        && texto(request.resource.data, 'detalle', 2000)
+        && texto(request.resource.data, 'ubicacion', 300)
+        && texto(request.resource.data, 'sitioWeb', 300)
+        && texto(request.resource.data, 'origen', 100)
+        && request.resource.data.acepta == true
+        && request.resource.data.estado == 'nuevo'
+        && request.resource.data.notas == ''
+        && request.resource.data.creado == request.time;
+
+      allow read, update, delete: if esAdmin();
+    }
+
+    match /config/{id} {
+      allow read: if true;        // el formulario muestra las fechas de la Expo
+      allow write: if esAdmin();
+    }
+  }
+}

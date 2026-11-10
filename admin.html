@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de registros | TVM</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d0d0e">
+<link rel="icon" href="assets/icono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<div class="fondo"></div>
+<div id="avisoPrueba" class="aviso-prueba oculto">MODO DE PRUEBA: falta conectar Firebase. Aquí entra cualquier usuario y los datos solo viven en este dispositivo.</div>
+
+<!-- Acceso -->
+<section id="vistaAcceso" class="acceso oculto">
+  <form class="caja" id="formAcceso" novalidate>
+    <img src="assets/logo-tvm.png" alt="TVM Expertos en Alturas" width="170" height="94">
+    <h1>Panel de registros</h1>
+    <div class="rejilla">
+      <div class="campo">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+      </div>
+      <div class="campo">
+        <label for="clave">Contraseña</label>
+        <input type="password" id="clave" autocomplete="current-password" required>
+      </div>
+    </div>
+    <button type="submit" class="boton grande" id="botonEntrar">Entrar</button>
+    <div class="msj-acceso" id="msjAcceso" role="alert"></div>
+  </form>
+</section>
+
+<!-- Panel -->
+<section id="vistaPanel" class="oculto">
+  <div class="barra">
+    <div class="contenedor ancho">
+      <img src="assets/logo-tvm.png" alt="TVM" width="73" height="40">
+      <span class="titulo">Registros de clientes</span>
+      <span class="hueco"></span>
+      <span class="quien" id="quien"></span>
+      <button class="boton claro chico" id="abrirExpo" type="button">Fechas de Expo</button>
+      <button class="boton claro chico" id="salir" type="button">Salir</button>
+    </div>
+  </div>
+
+  <div class="contenedor ancho">
+    <div class="cifras">
+      <div class="cifra"><b id="nTotal">0</b><span>Registros</span></div>
+      <div class="cifra"><b id="nNuevos">0</b><span>Por atender</span></div>
+      <div class="cifra"><b id="nPromo">0</b><span>Con beneficio Expo</span></div>
+      <div class="cifra"><b id="nHoy">0</b><span>Recibidos hoy</span></div>
+    </div>
+
+    <div class="herramientas">
+      <input type="search" id="buscar" placeholder="Buscar empresa, contacto, ciudad…" aria-label="Buscar">
+      <select id="filtroEstado" aria-label="Filtrar por estado"></select>
+      <select id="filtroPromo" aria-label="Filtrar por beneficio">
+        <option value="">Todos</option>
+        <option value="si">Con beneficio Expo</option>
+        <option value="no">Sin beneficio</option>
+      </select>
+      <button class="boton chico" id="exportar" type="button">Descargar Excel (CSV)</button>
+    </div>
+
+    <div id="avisoExpo" class="vacio oculto" style="padding:16px;margin-bottom:12px;text-align:left"></div>
+    <div id="lista"></div>
+    <div id="vacio" class="vacio oculto">Aún no hay registros que mostrar.</div>
+    <p class="pie" style="margin-top:26px">Formulario para clientes: <a id="ligaForm" href="index.html" target="_blank" rel="noopener">abrir</a></p>
+  </div>
+</section>
+
+<dialog id="dlgExpo">
+  <form class="dentro oscuro" id="formExpo" method="dialog">
+    <h2>Fechas de la Expo</h2>
+    <p>Las solicitudes recibidas en estos dos días se marcan con el beneficio de certificación anual sin costo.</p>
+    <div class="rejilla">
+      <div class="campo"><label for="expoNombre">Nombre del evento</label><input type="text" id="expoNombre" maxlength="80" placeholder="Ej. Expo Seguridad 2026"></div>
+      <div class="campo"><label for="expoDia1">Día 1</label><input type="date" id="expoDia1"></div>
+      <div class="campo"><label for="expoDia2">Día 2</label><input type="date" id="expoDia2"></div>
+    </div>
+    <div class="fila-acciones">
+      <button type="button" class="boton claro chico" id="cerrarExpo">Cancelar</button>
+      <button type="submit" class="boton chico" id="guardarExpo">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgBorrar">
+  <div class="dentro">
+    <h2>Eliminar registro</h2>
+    <p id="txtBorrar"></p>
+    <div class="fila-acciones">
+      <button type="button" class="boton claro chico" id="noBorrar">Cancelar</button>
+      <button type="button" class="boton peligro chico" id="siBorrar">Eliminar</button>
+    </div>
+  </div>
+</dialog>
+
+<script type="module" src="js/panel.js"></script>
+</body>
+</html>

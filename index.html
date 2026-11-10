@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitud de cotización | TVM Expertos en Alturas</title>
+<meta name="description" content="Solicite su cotización de líneas de vida y sistemas de protección contra caídas con TVM Expertos en Alturas.">
+<meta name="theme-color" content="#0d0d0e">
+<link rel="icon" href="assets/icono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<div class="fondo"></div>
+<div class="progreso" aria-hidden="true"><div id="barraProgreso"></div></div>
+<div id="avisoPrueba" class="aviso-prueba oculto">MODO DE PRUEBA: falta conectar Firebase. Los registros solo se guardan en este dispositivo.</div>
+
+<header class="contenedor cabecera">
+  <img src="assets/logo-tvm.png" alt="TVM Expertos en Alturas" width="190" height="105">
+  <div class="etiqueta">Solicitud de cotización</div>
+  <h1>Proteja a su gente.<br><em>Cotice directo con TVM.</em></h1>
+  <p class="entrada">Comparta los datos de su empresa y un especialista en protección contra caídas le contactará con una propuesta a la medida de su proyecto.</p>
+
+  <div class="promo aparece" role="note">
+    <div class="sello">Beneficio<br>Expo</div>
+    <p><strong>Certificación anual sin costo</strong> para las empresas que soliciten su cotización durante los dos días de la Expo.
+      <small id="promoFechas">Válido únicamente para solicitudes registradas durante el evento.</small></p>
+  </div>
+</header>
+
+<main class="contenedor">
+  <form id="formulario" class="tarjeta" novalidate>
+    <div class="bloque aparece" id="bloque1"><h2><b>01</b>Datos de la empresa</h2>
+    <div class="rejilla dos">
+      <div class="campo">
+        <label for="empresa">Nombre de la empresa</label>
+        <input type="text" id="empresa" name="empresa" autocomplete="organization" maxlength="160" required>
+        <div class="msj">Escriba el nombre de la empresa.</div>
+      </div>
+      <div class="campo">
+        <label for="sitioWeb">Sitio web <span class="opc">(opcional)</span></label>
+        <input type="text" id="sitioWeb" name="sitioWeb" inputmode="url" autocomplete="url" maxlength="300" placeholder="www.suempresa.com">
+      </div>
+    </div>
+
+    </div><div class="bloque aparece" id="bloque2"><h2><b>02</b>Persona de contacto</h2>
+    <div class="rejilla dos">
+      <div class="campo">
+        <label for="contacto">Nombre y apellido</label>
+        <input type="text" id="contacto" name="contacto" autocomplete="name" maxlength="160" required>
+        <div class="msj">Escriba el nombre de la persona de contacto.</div>
+      </div>
+      <div class="campo">
+        <label for="telefono">Teléfono o WhatsApp</label>
+        <input type="tel" id="telefono" name="telefono" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="10 dígitos" required>
+        <div class="msj">Escriba un teléfono de al menos 10 dígitos.</div>
+      </div>
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" name="correo" autocomplete="email" inputmode="email" maxlength="200" placeholder="nombre@empresa.com" required>
+        <div class="msj">Escriba un correo válido, por ejemplo nombre@empresa.com.</div>
+      </div>
+    </div>
+
+    </div><div class="bloque aparece" id="bloque3"><h2><b>03</b>Servicio que requiere</h2>
+    <div class="campo" id="campoServicios">
+      <span class="rotulo" id="rotuloServicios">Servicios de interés <span class="opc">(puede elegir varios)</span></span>
+      <div class="opciones" id="servicios" role="group" aria-labelledby="rotuloServicios"></div>
+      <div class="msj">Elija al menos un servicio.</div>
+    </div>
+    <div class="rejilla" style="margin-top:16px">
+      <div class="campo">
+        <label for="detalle">Cuéntenos sobre su proyecto <span class="opc">(opcional)</span></label>
+        <textarea id="detalle" name="detalle" maxlength="2000" placeholder="Ejemplo: nave de 5,000 m² con techo de lámina; se requiere línea de vida para mantenimiento."></textarea>
+      </div>
+      <div class="campo">
+        <label for="ubicacion">Ubicación donde se requiere el servicio</label>
+        <input type="text" id="ubicacion" name="ubicacion" autocomplete="off" maxlength="300" placeholder="Ciudad y estado, o dirección de la planta" required>
+        <div class="msj">Indique la ciudad y el estado donde se hará el trabajo.</div>
+      </div>
+      <div class="campo">
+        <label for="origen">¿Cómo se enteró de TVM?</label>
+        <select id="origen" name="origen" required></select>
+        <div class="msj">Elija una opción.</div>
+      </div>
+    </div>
+
+    </div>
+    <label class="acepto campo" id="campoAcepta">
+      <input type="checkbox" id="acepta" name="acepta" required>
+      <span>Autorizo que TVM B SAFE, S.A. de C.V. use estos datos para contactarme y enviarme la cotización solicitada.
+        <span class="msj">Marque esta casilla para enviar su solicitud.</span></span>
+    </label>
+
+    <button type="submit" class="boton grande" id="enviar"><span id="enviarTxt">Solicitar cotización</span> <span class="flecha" aria-hidden="true">→</span></button>
+    <div class="avance-texto" id="avanceTexto" aria-live="polite"></div>
+    <div class="error-envio" id="errorEnvio" role="alert"></div>
+  </form>
+
+  <section id="gracias" class="tarjeta oculto" aria-live="polite">
+    <div class="gracias">
+      <div class="palomita"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+      <h2>Solicitud recibida</h2>
+      <p>Gracias, <strong id="graciasNombre"></strong>. Un especialista de TVM revisará su información y le contactará para preparar su cotización.</p>
+      <div class="folio">FOLIO <span id="folio"></span></div>
+      <p id="graciasPromo"></p>
+      <div class="acciones">
+        <button type="button" class="boton" id="otro">Registrar otra empresa</button>
+        <a class="boton claro" id="waTVM" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="contenedor pie">
+  TVM B SAFE, S.A. de C.V. · Sistema de gestión certificado ISO 9001:2015<br>
+  55 7029 6537 · <a href="mailto:info@tvm.com.mx">info@tvm.com.mx</a> · <a href="https://tvm.com.mx" target="_blank" rel="noopener">tvm.com.mx</a>
+</footer>
+
+<script type="module" src="js/formulario.js"></script>
+</body>
+</html>
