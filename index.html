@@ -10,7 +10,38 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/estilos.css?v=3">
+<style>
+/* Encabezado: logo + botón al sitio (va aquí para que funcione aunque el CSS esté en caché) */
+.tope{display:flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:14px}
+.logo-liga{display:block;flex:0 1 auto;border-radius:14px;transition:transform .3s cubic-bezier(.2,.8,.2,1),filter .3s}
+.logo-liga img{display:block;width:176px;max-width:100%;height:auto}
+.logo-liga:hover{transform:translateY(-2px) scale(1.03);filter:drop-shadow(0 10px 22px rgba(244,123,32,.55))}
+.logo-liga:active{transform:scale(.97)}
+.logo-liga:focus-visible,.sitio-web:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.sitio-web{position:relative;overflow:hidden;flex:none;display:inline-flex;align-items:center;gap:11px;padding:7px 9px 7px 7px;border-radius:999px;
+  text-decoration:none;color:#fff;border:1.5px solid transparent;
+  background:linear-gradient(#17171a,#101012) padding-box,linear-gradient(115deg,#ff9d47,#f47b20 30%,rgba(255,255,255,.18) 55%,#f47b20 80%,#ff9d47) border-box;
+  background-size:100% 100%,220% 100%;animation:bordeTVM 5s linear infinite;
+  box-shadow:0 12px 34px -12px rgba(244,123,32,.75),inset 0 1px 0 rgba(255,255,255,.08);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+@keyframes bordeTVM{to{background-position:0 0,220% 0}}
+.sitio-web::after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg);animation:destelloTVM 4s ease-in-out infinite}
+@keyframes destelloTVM{0%,60%{left:-70%}100%{left:140%}}
+.sitio-web:hover{transform:translateY(-2px);box-shadow:0 18px 44px -12px rgba(244,123,32,.95),inset 0 1px 0 rgba(255,255,255,.12)}
+.sitio-web:active{transform:scale(.97)}
+.sitio-web .globo{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#160a00;
+  background:linear-gradient(140deg,#ffb066,#f47b20 55%,#de5f0a);box-shadow:0 6px 16px -4px rgba(244,123,32,.9),inset 0 1px 0 rgba(255,255,255,.45)}
+.sitio-web .globo svg{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.sitio-web:hover .globo svg{transform:rotate(180deg)}
+.sitio-web .txt{display:flex;flex-direction:column;line-height:1.15;position:relative;z-index:1}
+.sitio-web .txt small{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#ff9d47}
+.sitio-web .txt b{font-size:15px;font-weight:800;letter-spacing:-.01em}
+.sitio-web .flechita{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.09);color:#ff9d47;transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s,color .25s}
+.sitio-web:hover .flechita{transform:translate(2px,-2px);background:#f47b20;color:#160a00}
+@media (max-width:430px){.logo-liga img{width:128px}.sitio-web{gap:8px;padding:6px 7px 6px 6px}.sitio-web .globo{width:34px;height:34px}.sitio-web .txt b{font-size:13px}.sitio-web .txt small{font-size:9px}.sitio-web .flechita{width:24px;height:24px}}
+@media (prefers-reduced-motion:reduce){.sitio-web,.sitio-web::after{animation:none}}
+</style>
 </head>
 <body>
 <div class="fondo"></div>
@@ -19,8 +50,14 @@
 
 <header class="contenedor cabecera">
   <div class="tope">
-    <img src="assets/logo-tvm.png" alt="TVM Expertos en Alturas" width="190" height="105">
-    <a class="boton claro chico sitio" href="https://tvm.com.mx" target="_blank" rel="noopener">Visitar sitio web <span aria-hidden="true">↗</span></a>
+    <a class="logo-liga" href="https://tvm.com.mx" target="_blank" rel="noopener" aria-label="Ir al sitio web de TVM">
+      <img src="assets/logo-tvm.png" alt="TVM Expertos en Alturas" width="190" height="105">
+    </a>
+    <a class="sitio-web" href="https://tvm.com.mx" target="_blank" rel="noopener">
+      <span class="globo" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9z"/></svg></span>
+      <span class="txt"><small>Sitio web</small><b>tvm.com.mx</b></span>
+      <span class="flechita" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
+    </a>
   </div>
   <div class="etiqueta">Solicitud de cotización</div>
   <h1>Proteja a su gente.<br><em>Cotice directo con TVM.</em></h1>
